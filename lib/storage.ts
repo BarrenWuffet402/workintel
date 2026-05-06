@@ -1,6 +1,17 @@
 import { CompanyProfile } from './extractor'
+import { SEED_COMPANIES } from './seedData'
 
 const STORAGE_KEY = 'workintel_companies'
+const SEED_FLAG = 'workintel_seeded_v1'
+
+export function seedIfEmpty(): void {
+  if (typeof window === 'undefined') return
+  if (localStorage.getItem(SEED_FLAG)) return
+  if (loadCompanies().length === 0) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED_COMPANIES))
+  }
+  localStorage.setItem(SEED_FLAG, '1')
+}
 
 export interface SavedCompany extends CompanyProfile {
   id: string

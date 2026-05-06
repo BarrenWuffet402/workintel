@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import CompanyTable from '@/components/CompanyTable'
-import { saveCompany, loadCompanies, deleteCompany, SavedCompany } from '@/lib/storage'
+import { saveCompany, loadCompanies, deleteCompany, seedIfEmpty, SavedCompany } from '@/lib/storage'
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -12,6 +12,7 @@ export default function Home() {
   const [companies, setCompanies] = useState<SavedCompany[]>([])
 
   useEffect(() => {
+    seedIfEmpty()
     setCompanies(loadCompanies())
   }, [])
 
